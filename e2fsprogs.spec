@@ -5,11 +5,11 @@
 # Source0 file verified with key 0xF2F95956950D81A3 (tytso@mit.edu)
 #
 Name     : e2fsprogs
-Version  : 1.46.4
-Release  : 83
-URL      : https://sourceforge.net/projects/e2fsprogs/files/e2fsprogs/v1.46.4/e2fsprogs-1.46.4.tar.gz
-Source0  : https://sourceforge.net/projects/e2fsprogs/files/e2fsprogs/v1.46.4/e2fsprogs-1.46.4.tar.gz
-Source1  : https://sourceforge.net/projects/e2fsprogs/files/e2fsprogs/v1.46.4/e2fsprogs-1.46.4.tar.gz.asc
+Version  : 1.46.5
+Release  : 84
+URL      : https://sourceforge.net/projects/e2fsprogs/files/e2fsprogs/v1.46.5/e2fsprogs-1.46.5.tar.gz
+Source0  : https://sourceforge.net/projects/e2fsprogs/files/e2fsprogs/v1.46.5/e2fsprogs-1.46.5.tar.gz
+Source1  : https://sourceforge.net/projects/e2fsprogs/files/e2fsprogs/v1.46.5/e2fsprogs-1.46.5.tar.gz.asc
 Summary  : Utilities for managing ext2/ext3/ext4 filesystems
 Group    : Development/Tools
 License  : BSD-3-Clause BSD-3-Clause-Clear GPL-2.0 LGPL-2.1
@@ -199,13 +199,13 @@ services components for the e2fsprogs package.
 
 
 %prep
-%setup -q -n e2fsprogs-1.46.4
-cd %{_builddir}/e2fsprogs-1.46.4
+%setup -q -n e2fsprogs-1.46.5
+cd %{_builddir}/e2fsprogs-1.46.5
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
 pushd ..
-cp -a e2fsprogs-1.46.4 build32
+cp -a e2fsprogs-1.46.5 build32
 popd
 
 %build
@@ -213,7 +213,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1629407999
+export SOURCE_DATE_EPOCH=1640975194
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -229,7 +229,7 @@ export CXXFLAGS="$CXXFLAGS -O3 -Os -fdata-sections -ffat-lto-objects -ffunction-
 --enable-elf-shlibs
 make
 pushd ../build32/
-export PKG_CONFIG_PATH="/usr/lib32/pkgconfig"
+export PKG_CONFIG_PATH="/usr/lib32/pkgconfig:/usr/share/pkgconfig"
 export ASFLAGS="${ASFLAGS}${ASFLAGS:+ }--32"
 export CFLAGS="${CFLAGS}${CFLAGS:+ }-m32 -mstackrealign"
 export CXXFLAGS="${CXXFLAGS}${CXXFLAGS:+ }-m32 -mstackrealign"
@@ -252,14 +252,14 @@ cd ../build32;
 make check || :
 
 %install
-export SOURCE_DATE_EPOCH=1629407999
+export SOURCE_DATE_EPOCH=1640975194
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/e2fsprogs
-cp %{_builddir}/e2fsprogs-1.46.4/NOTICE %{buildroot}/usr/share/package-licenses/e2fsprogs/e7b0a43ab2f7a589ca3bf497fe86e52b15502355
-cp %{_builddir}/e2fsprogs-1.46.4/debian/copyright %{buildroot}/usr/share/package-licenses/e2fsprogs/fc6b02ddb7365d99d34715f755cd7a1a44f59e8e
-cp %{_builddir}/e2fsprogs-1.46.4/ext2ed/COPYRIGHT %{buildroot}/usr/share/package-licenses/e2fsprogs/75cadb9188a364774ce3c4b721028c9b3b24d11c
-cp %{_builddir}/e2fsprogs-1.46.4/lib/ext2fs/tdb/patches/copyright %{buildroot}/usr/share/package-licenses/e2fsprogs/d1bf87ecabe986bacd73e7b7146effbaa99abe26
-cp %{_builddir}/e2fsprogs-1.46.4/lib/uuid/COPYING %{buildroot}/usr/share/package-licenses/e2fsprogs/e5c9f3867b9251dcd2d97a4d1dffaa38afe6625d
+cp %{_builddir}/e2fsprogs-1.46.5/NOTICE %{buildroot}/usr/share/package-licenses/e2fsprogs/e7b0a43ab2f7a589ca3bf497fe86e52b15502355
+cp %{_builddir}/e2fsprogs-1.46.5/debian/copyright %{buildroot}/usr/share/package-licenses/e2fsprogs/fc6b02ddb7365d99d34715f755cd7a1a44f59e8e
+cp %{_builddir}/e2fsprogs-1.46.5/ext2ed/COPYRIGHT %{buildroot}/usr/share/package-licenses/e2fsprogs/75cadb9188a364774ce3c4b721028c9b3b24d11c
+cp %{_builddir}/e2fsprogs-1.46.5/lib/ext2fs/tdb/patches/copyright %{buildroot}/usr/share/package-licenses/e2fsprogs/d1bf87ecabe986bacd73e7b7146effbaa99abe26
+cp %{_builddir}/e2fsprogs-1.46.5/lib/uuid/COPYING %{buildroot}/usr/share/package-licenses/e2fsprogs/e5c9f3867b9251dcd2d97a4d1dffaa38afe6625d
 pushd ../build32/
 %make_install32
 if [ -d  %{buildroot}/usr/lib32/pkgconfig ]
@@ -268,16 +268,22 @@ pushd %{buildroot}/usr/lib32/pkgconfig
 for i in *.pc ; do ln -s $i 32$i ; done
 popd
 fi
+if [ -d %{buildroot}/usr/share/pkgconfig ]
+then
+pushd %{buildroot}/usr/share/pkgconfig
+for i in *.pc ; do ln -s $i 32$i ; done
+popd
+fi
 popd
 %make_install
 %find_lang e2fsprogs
 ## Remove excluded files
-rm -f %{buildroot}/usr/bin/uuidgen
-rm -f %{buildroot}/usr/lib32/e2fsprogs/e2scrub_all_cron
-rm -f %{buildroot}/usr/lib32/e2fsprogs/e2scrub_fail
-rm -f %{buildroot}/usr/lib32/e2initrd_helper
-rm -f %{buildroot}/usr/lib64/e2fsprogs/e2scrub_all_cron
-rm -f %{buildroot}/usr/share/man/man1/uuidgen.1
+rm -f %{buildroot}*/usr/bin/uuidgen
+rm -f %{buildroot}*/usr/lib32/e2fsprogs/e2scrub_all_cron
+rm -f %{buildroot}*/usr/lib32/e2fsprogs/e2scrub_fail
+rm -f %{buildroot}*/usr/lib32/e2initrd_helper
+rm -f %{buildroot}*/usr/lib64/e2fsprogs/e2scrub_all_cron
+rm -f %{buildroot}*/usr/share/man/man1/uuidgen.1
 ## install_append content
 %make_install install-libs
 mkdir -p %{buildroot}/usr/libexec
