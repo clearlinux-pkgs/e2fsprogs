@@ -18,3 +18,5 @@ Configure miss: sys/key.h
 Configure miss: sys/key.h
 Configure miss: system crontab dir
 Configure miss: system crontab dir
+Configure miss: whether qsort_r is BSD version
+Configure miss: whether qsort_r is BSD version
