@@ -3,10 +3,11 @@ Configure miss: CFLocaleCopyPreferredLanguages
 Configure miss: CFLocaleCopyPreferredLanguages
 Configure miss: add_key
 Configure miss: add_key
+Configure miss: archive_read_new in -larchive
+Configure miss: archive_read_new in -larchive
 Configure miss: attr/xattr.h
 Configure miss: attr/xattr.h
-Configure miss: fuse.h
-Configure miss: fuse.h
+Configure miss: gcc option to enable large file support
 Configure miss: gcc options needed to detect all undeclared functions
 Configure miss: gcc options needed to detect all undeclared functions
 Configure miss: keyctl

@@ -1,4 +1,1 @@
 %make_install install-libs
-mkdir -p %{buildroot}/usr/libexec
-mv %{buildroot}/usr/lib64/e2fsprogs/e2scrub_fail %{buildroot}/usr/libexec/
-sed -i 's|/usr/lib64/e2fsprogs/|/usr/libexec/|' %{buildroot}/usr/lib/systemd/system/e2scrub_fail@.service

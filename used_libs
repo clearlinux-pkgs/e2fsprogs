@@ -1,4 +1,5 @@
 ld-linux-x86-64.so.2
 libblkid.so.1
 libc.so.6
+libfuse3.so.3
 libuuid.so.1
