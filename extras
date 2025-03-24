@@ -15,6 +15,7 @@
 /usr/bin/mkfs.ext3
 /usr/bin/mkfs.ext4
 /usr/bin/mkfs.ext4dev
+/usr/bin/fuse2fs
 /usr/share/et/et_c.awk
 /usr/share/et/et_h.awk
 /usr/share/ss/ct_c.awk
